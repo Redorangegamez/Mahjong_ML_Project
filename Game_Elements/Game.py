@@ -1,5 +1,7 @@
-from Models import Deck, Set, Tile
-import Player
+import random
+
+from Models import Deck, Hand
+from Game_Elements import Player
 
 class Game(object):
   def __init__(self, lop):
@@ -37,7 +39,6 @@ class Game(object):
           lop[self.seat_winds.index(i)].repeats += 1
       break
 
-
   def start_round(self, lop):
     deck = Deck()
     deck.deal(lop)
@@ -56,8 +57,8 @@ class Game(object):
         print("options: chi, pon, kan, ron, tsumo, riichi")
         lop[self.current_player].draw_tile(deck, False)
         t = lop[self.current_player].play_tile()
-        if can_take(t, lop, self.current_player):
-          break
+        if self.can_take(t, lop, self.current_player):
+          return
         else:
           self.discards[self.current_player].append(t)
           printable_discards[self.current_player].append(t.tile_to_string())
@@ -68,35 +69,5 @@ class Game(object):
   def can_take(self, tile, lop, player):
     return False
 
-
   def end_game(self):
-    points = []
-    for pile in self.trick_piles:
-      point = 0
-      has_ten = False
-      heart_count = 0
-      for card in pile:
-        if card.suit == "h":
-          heart_count += 1
-          if card.value >= 11:
-            point += 10 * (card.value - 9)
-          elif card.value >= 5:
-            point += 10
-        elif card == Card("s", 12):
-          point += 100
-        elif card == Card("d", 11):
-          point -= 100
-        elif card == Card("c", 10):
-          has_ten = True
-      num_points = len(pile)
-      if has_ten:
-        num_points -= 1
-      if heart_count == 13:
-        point = -200 - (100 * (num_points - 13))
-      if has_ten:
-        if len(pile) == 1:
-          point -= 50
-        else:
-          point *= 2
-      points.append(point)
-    return points
+    return

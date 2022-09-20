@@ -21,7 +21,7 @@ class Deck(object):
         numbers = ['1', '2', '3', '4', '6', '7', '8', '9']
         for i in suits:
             for j in numbers:
-                t = Tile
+                t = Tile(i,j)
                 self.tiles.append(t)
                 self.tiles.append(Tile(i, j))
                 self.tiles.append(Tile(i, j))
@@ -71,10 +71,10 @@ class Deck(object):
         return drawn_tile
 
     def draw_from_back(self):
-        kan_count += 1
+        self.kan_count += 1
         drawn_tile = self.dead_wall[-1]
         self.dead_wall = self.tiles[-1] + self.dead_wall
         self.tiles = self.tiles[:-1]
-        for i in doras:
+        for i in self.doras:
             i += 1
         return drawn_tile

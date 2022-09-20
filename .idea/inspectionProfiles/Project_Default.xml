@@ -5,6 +5,8 @@
       <option name="ignoredErrors">
         <list>
           <option value="E722" />
+          <option value="W292" />
+          <option value="E111" />
         </list>
       </option>
     </inspection_tool>
@@ -21,6 +23,7 @@
         <list>
           <option value="practice_server._thread" />
           <option value="practice_server.start_new_thread" />
+          <option value="list.empty" />
         </list>
       </option>
     </inspection_tool>
