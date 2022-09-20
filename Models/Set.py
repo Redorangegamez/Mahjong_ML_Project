@@ -1,6 +1,3 @@
-import Tile
-
-
 class Set(object):
     """
     A Set is represented with the type of set, tiles in the set, tile taken, and the player taken from.

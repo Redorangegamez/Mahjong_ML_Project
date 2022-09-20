@@ -1,4 +1,4 @@
-class Tile(object):
+class Tile:
     """
     Tile is represented as tuple with properties 'suit' and 'value' (both strings).
     Tile can be evaluated if playable.
@@ -17,7 +17,7 @@ class Tile(object):
         result = 14
       elif (value == 'r') and (suit == 's'):
         result = 23
-      elif (suit == 'w') or (suit == 'h'):
+      elif suit == 'w':
         if value == 'e':
           result = 28
         elif value == 's':

@@ -1,8 +1,9 @@
 import random
-from Models import Tile
+from Models.Tile import Tile
+from Models.Hand import Hand
+from functools import cmp_to_key
 
-
-class Deck(object):
+class Deck:
     """
   Deck consists of list of tiles. Is initialized with standard list of tiles.
   Deck can be shuffled, drawn from.
@@ -35,9 +36,9 @@ class Deck(object):
             self.tiles.append(Tile('w', 's'))
             self.tiles.append(Tile('w', 'w'))
             self.tiles.append(Tile('w', 'n'))
-            self.tiles.append(Tile('h', 'g'))
-            self.tiles.append(Tile('h', 'r'))
-            self.tiles.append(Tile('h', 'w'))
+            self.tiles.append(Tile('d', 'g'))
+            self.tiles.append(Tile('d', 'r'))
+            self.tiles.append(Tile('d', 'w'))
 
     def shuffle(self):
         random.shuffle(self.tiles)
@@ -46,7 +47,8 @@ class Deck(object):
         for i in range(4):
             s = self.tiles[slice(13 * i, 13 * (i + 1))]
             s.sort(key=lambda tile: tile.suit_value())
-            lop[i].hand = s
+            new_hand = Hand(s)
+            lop[i].hand = new_hand
         self.tiles = self.tiles[52:]
         self.dead_wall = self.tiles[-14:]
 
@@ -78,3 +80,6 @@ class Deck(object):
         for i in self.doras:
             i += 1
         return drawn_tile
+
+    def deck_out(self):
+        return len(self.tiles) == len(self.dead_wall)
